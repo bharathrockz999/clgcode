@@ -1,1 +1,2 @@
-# spring-boot3-jwt
+# college Blog
+# change database url in application.properties
