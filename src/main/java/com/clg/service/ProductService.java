@@ -3,6 +3,7 @@ package com.clg.service;
 import com.clg.dto.Product;
 import com.clg.entity.UserInfo;
 import com.clg.repository.UserInfoRepository;
+import com.clg.sequence.SequenceGeneratorService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,9 @@ public class ProductService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    SequenceGeneratorService sequenceGeneratorService;
 
     @PostConstruct
     public void loadProductsFromDB() {
@@ -49,8 +53,11 @@ public class ProductService {
 
 
     public String addUser(UserInfo userInfo) {
+
+        userInfo.setId(sequenceGeneratorService.generateSequence(UserInfo.SEQUENCE_NAME));
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         repository.save(userInfo);
         return "user added to system ";
     }
+
 }
