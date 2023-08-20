@@ -4,6 +4,8 @@ import com.clg.model.Profile;
 import com.clg.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,8 +14,16 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    @PostMapping("/create")  
+    @PostMapping("/create")
     public ResponseEntity<Profile> createProfile(@RequestBody Profile newProfile) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        newProfile.setUsername(username);
         Profile createdProfile = profileService.createProfile(newProfile);
         return ResponseEntity.ok(createdProfile);
     }
@@ -38,5 +48,4 @@ public class ProfileController {
         return ResponseEntity.ok(updated);
     }
 
-    // Other methods for CRUD operations, delete, etc.
 }
