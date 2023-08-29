@@ -1,5 +1,6 @@
 package com.clg.controller;
 
+import com.clg.dto.PagableResponse;
 import com.clg.entity.Blog;
 import com.clg.model.Profile;
 import com.clg.service.BlogService;
@@ -53,10 +54,14 @@ public class BlogController {
         blogService.addLikeToBlog(blog);
         return ResponseEntity.ok("Liked");
     }
-    @PostMapping("/like/{blogid}")
+    @PostMapping("/unlike/{blogid}")
     public ResponseEntity<String> unlikeBlog(@PathVariable Integer blogid) {
         Blog blog = blogService.getBlogById(blogid);
         blogService.unlikeToBlog(blog);
         return ResponseEntity.ok("UNLiked");
+    }
+    @PostMapping("/page/get")
+    public ResponseEntity<PagableResponse> getPagableBlogs(@RequestBody Map<String,Integer> param ) {
+        return ResponseEntity.ok(blogService.getBlogsPagable(param.get("pageNumber"), param.get("noOfRecords"), "crtdTme"));
     }
 }

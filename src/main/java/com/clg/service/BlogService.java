@@ -1,11 +1,17 @@
 package com.clg.service;
 
+import com.clg.dto.PagableResponse;
 import com.clg.entity.Blog;
 import com.clg.entity.UserInfo;
 import com.clg.model.Profile;
 import com.clg.repository.BlogRepository;
 import com.clg.sequence.SequenceGeneratorService;
+import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -95,5 +101,15 @@ public class BlogService {
         Integer unlikes = blog.getUnlikes();
         blog.setUnlikes(++unlikes);
         blogRepository.save(blog);
+    }
+
+    public PagableResponse getBlogsPagable(int pageNumber, int numberOfRecords, String sorting) {
+        Pageable pageable = PageRequest.of(pageNumber, numberOfRecords, Sort.by(sorting).descending());
+        Page<Blog> page= blogRepository.findAll(pageable);
+        PagableResponse response = new PagableResponse();
+        response.setResponse(page.stream().toList());
+        response.setTotalElements(page.getTotalElements());
+        response.setTotalPages(page.getTotalPages());
+        return response ;
     }
 }
