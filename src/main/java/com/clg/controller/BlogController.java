@@ -7,6 +7,8 @@ import com.clg.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -61,7 +63,16 @@ public class BlogController {
         return ResponseEntity.ok("UNLiked");
     }
     @PostMapping("/page/get")
-    public ResponseEntity<PagableResponse> getPagableBlogs(@RequestBody Map<String,Integer> param ) {
-        return ResponseEntity.ok(blogService.getBlogsPagable(param.get("pageNumber"), param.get("noOfRecords"), "crtdTme"));
+    public ResponseEntity<PagableResponse> getPagableBlogs(@RequestBody Map<String,String> param ) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+       String userName =  param.get("userName") == null ?  username : param.get("userName");
+        return ResponseEntity.ok(blogService.getBlogsPagable(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName));
     }
 }
