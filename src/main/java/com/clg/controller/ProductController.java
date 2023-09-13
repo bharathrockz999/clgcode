@@ -6,6 +6,8 @@ import com.clg.entity.UserInfo;
 import com.clg.service.JwtService;
 import com.clg.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,9 +35,14 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public String addNewUser(@RequestBody UserInfo userInfo) {
-        return service.addUser(userInfo);
+    public ResponseEntity<String> addNewUser(@RequestBody UserInfo userInfo) {
+        String msg = service.addUser(userInfo);
+        if(msg.contains("exists")){
+            return new ResponseEntity<String>("email already exists", HttpStatus.FOUND);
+        }
+        return new ResponseEntity<String>("user created successfully", HttpStatus.OK);
     }
+
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
