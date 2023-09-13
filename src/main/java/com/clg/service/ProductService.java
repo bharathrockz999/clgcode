@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -53,9 +54,15 @@ public class ProductService {
 
 
     public String addUser(UserInfo userInfo) {
-
+        Optional<UserInfo> userinfomail =repository.findByEmail(userInfo.getEmail());
+        if(userinfomail.isPresent()){
+            return "user already exists with the email ";
+        }
         userInfo.setId(sequenceGeneratorService.generateSequence(UserInfo.SEQUENCE_NAME));
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+        if(userInfo.getEmail().endsWith("@nwmissouri.com")){
+            userInfo.setRoles("ROLE_STUDENT");
+        }
         repository.save(userInfo);
         return "user added to system ";
     }
