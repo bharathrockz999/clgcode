@@ -62,6 +62,8 @@ public class ProductService {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         if(userInfo.getEmail().endsWith("@nwmissouri.com")){
             userInfo.setRoles("ROLE_STUDENT");
+        } else {
+            userInfo.setRoles("ROLE_USER");
         }
         repository.save(userInfo);
         return "user added to system ";
