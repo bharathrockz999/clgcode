@@ -1,5 +1,6 @@
 package com.clg.controller;
 
+import com.clg.dto.BlogCategoryVo;
 import com.clg.dto.PagableResponse;
 import com.clg.entity.Blog;
 import com.clg.model.Profile;
@@ -37,6 +38,13 @@ public class BlogController {
         Blog blogcreated = blogService.approveBlog(blogid);
         return ResponseEntity.ok(blogcreated);
     }
+    @PostMapping("/reject/{blogid}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Blog> rejectBlog(@PathVariable Integer blogid) {
+        Blog blogcreated = blogService.rejectBlog(blogid);
+        return ResponseEntity.ok(blogcreated);
+    }
+
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<Blog> > getAllBlogs() {
@@ -64,7 +72,6 @@ public class BlogController {
     }
     @PostMapping("/page/get")
     public ResponseEntity<PagableResponse> getPagableBlogs(@RequestBody Map<String,String> param ) {
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = null;
         if (principal instanceof UserDetails) {
@@ -74,5 +81,19 @@ public class BlogController {
         }
        String userName =  param.get("userName") == null ?  username : param.get("userName");
         return ResponseEntity.ok(blogService.getBlogsPagable(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName));
+    }
+
+    @PostMapping("/page/get/category")
+    public ResponseEntity<PagableResponse> getPagableBlogsByCategory(@RequestBody BlogCategoryVo blogCategoryVo) {
+        Map<String,String> param = blogCategoryVo.getParam();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        String userName =  param.get("userName") == null ?  username : param.get("userName");
+        return ResponseEntity.ok(blogService.getBlogsPagableByCategory(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName,blogCategoryVo.getCategory(),blogCategoryVo.getApprovedStatus()));
     }
 }

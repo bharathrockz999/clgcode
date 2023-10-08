@@ -1,5 +1,6 @@
 package com.clg.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +29,8 @@ public class Profile {
     private String email;
     private String contactNumber;
     private Map<String, Integer> skills;
-    private String[] languages;
+    private Map<String, Integer> languages;
     private List<Education> education;
-    private List<Project> projectHistory;
 
 
     @Data
@@ -38,16 +38,9 @@ public class Profile {
     @NoArgsConstructor
     public static class Education {
         private String universityName;
-        private String yearOfEducation;
+        private Date startDate;
         private String degreeType;
+        private Date endDate;
     }
-    
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Project {
-        private String projectName;
-        private String projectDate;
-        private String projectDescription;
-    }
+
 }

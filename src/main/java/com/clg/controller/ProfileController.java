@@ -42,7 +42,6 @@ public class ProfileController {
         existingProfile.setContactNumber(updatedProfile.getContactNumber());
         existingProfile.setSkills(updatedProfile.getSkills());
         existingProfile.setEducation(updatedProfile.getEducation());
-        existingProfile.setProjectHistory(updatedProfile.getProjectHistory());
 
         Profile updated = profileService.updateProfile(existingProfile);
         return ResponseEntity.ok(updated);

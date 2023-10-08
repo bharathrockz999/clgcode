@@ -20,15 +20,21 @@ public class Blog {
     @Id
     private Long id;
     private String sub;
+    private String shortIntro;
     private String desc;
     private String crtdBy;
     private Date crtdTme;
     private Boolean approved;
     private String approvedBy;
     private Date apprvdTme;
-    private Boolean isDeleted;
     private Integer likes = 0;
     private Integer unlikes = 0;
+    private String status;
+    private Boolean visibility; // public true // private false
+    List<String> categories = new ArrayList<>();
     private Map<String,String> comments = new HashMap<>();
+    private List<String> attachments = new ArrayList<>();
+    private Date startDate;
+    private Date endDate;
 
 }

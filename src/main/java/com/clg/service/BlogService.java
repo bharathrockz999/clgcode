@@ -50,7 +50,6 @@ public class BlogService {
         Blog existingBlog = existingOptional.get();
         existingBlog.setSub(blog.getSub());
         existingBlog.setDesc(blog.getDesc());
-        existingBlog.setIsDeleted(blog.getIsDeleted());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = null;
         if (principal instanceof UserDetails) {
@@ -111,11 +110,45 @@ public class BlogService {
         }else{
             page = blogRepository.findByCrtdBy(userName,pageable);
         }
-
         PagableResponse response = new PagableResponse();
         response.setResponse(page.stream().toList());
         response.setTotalElements(page.getTotalElements());
         response.setTotalPages(page.getTotalPages());
+        response.setCurrentPage(page.getNumber());
         return response ;
     }
+
+    public PagableResponse getBlogsPagableByCategory(int pageNumber, int numberOfRecords, String sorting,String userName,List<String> category,Boolean approved) {
+        Page<Blog> page = null;
+        Pageable pageable = PageRequest.of(pageNumber, numberOfRecords, Sort.by(sorting).descending());
+        if(userName.equalsIgnoreCase("all")){
+            page = blogRepository.findByApprovedAndCategoriesIn(approved,category,pageable);
+        }else{
+            page = blogRepository.findByApprovedAndCrtdByAndCategoriesIn(approved,userName,category,pageable);
+        }
+        PagableResponse response = new PagableResponse();
+        response.setResponse(page.stream().toList());
+        response.setTotalElements(page.getTotalElements());
+        response.setTotalPages(page.getTotalPages());
+        response.setCurrentPage(page.getNumber());
+        return response ;
+    }
+
+    public Blog rejectBlog(Integer blogid) {
+        Optional<Blog> existingOptional = blogRepository.findById(blogid);
+        Blog existingBlog = existingOptional.get();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        existingBlog.setApprovedBy(username);
+        existingBlog.setApprvdTme(new Date());
+        existingBlog.setApproved(false);
+        blogRepository.save(existingBlog);
+        return existingBlog;
+    }
+
 }
