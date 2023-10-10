@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BlogService {
@@ -92,13 +89,29 @@ public class BlogService {
         blogRepository.save(blog);
     }
     public void addLikeToBlog(Blog blog){
-        Integer likes = blog.getLikes();
-        blog.setLikes(++likes);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        blog.getUnlikes().remove(username);
+        Set<String> likes = blog.getLikes();
+        likes.add(username);
         blogRepository.save(blog);
     }
     public void unlikeToBlog(Blog blog){
-        Integer unlikes = blog.getUnlikes();
-        blog.setUnlikes(++unlikes);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        blog.getLikes().remove(username);
+        Set<String> unLikes = blog.getUnlikes();
+        unLikes.add(username);
         blogRepository.save(blog);
     }
 

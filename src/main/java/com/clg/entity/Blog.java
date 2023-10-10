@@ -27,8 +27,6 @@ public class Blog {
     private Boolean approved;
     private String approvedBy;
     private Date apprvdTme;
-    private Integer likes = 0;
-    private Integer unlikes = 0;
     private String status;
     private Boolean visibility; // public true // private false
     List<String> categories = new ArrayList<>();
@@ -36,5 +34,6 @@ public class Blog {
     private List<String> attachments = new ArrayList<>();
     private Date startDate;
     private Date endDate;
-
+    private Set<String> likes =  new HashSet<>();
+    private Set<String> unlikes = new HashSet<>();
 }

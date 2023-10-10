@@ -53,7 +53,6 @@ public class BlogController {
     }
     @PostMapping("/addcomment/{blogid}")
     public ResponseEntity<String> createBlog(@PathVariable Integer blogid, @RequestBody Map<String,String> userIdComments) {
-
        Blog blog = blogService.getBlogById(blogid);
         blogService.addCommentsToBlog(blog,userIdComments);
         return ResponseEntity.ok("successfully added comment");
@@ -68,7 +67,7 @@ public class BlogController {
     public ResponseEntity<String> unlikeBlog(@PathVariable Integer blogid) {
         Blog blog = blogService.getBlogById(blogid);
         blogService.unlikeToBlog(blog);
-        return ResponseEntity.ok("UNLiked");
+        return ResponseEntity.ok("unliked");
     }
     @PostMapping("/page/get")
     public ResponseEntity<PagableResponse> getPagableBlogs(@RequestBody Map<String,String> param ) {
