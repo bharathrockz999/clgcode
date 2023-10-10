@@ -102,13 +102,13 @@ public class BlogService {
         blogRepository.save(blog);
     }
 
-    public PagableResponse getBlogsPagable(int pageNumber, int numberOfRecords, String sorting,String userName) {
+    public PagableResponse getBlogsPagable(int pageNumber, int numberOfRecords, String sorting,String userName,String approvedStatus) {
         Page<Blog> page = null;
         Pageable pageable = PageRequest.of(pageNumber, numberOfRecords, Sort.by(sorting).descending());
         if(userName.equalsIgnoreCase("all")){
-            page = blogRepository.findAll(pageable);
+            page = blogRepository.findByApproved("true".equalsIgnoreCase(approvedStatus),pageable);
         }else{
-            page = blogRepository.findByCrtdBy(userName,pageable);
+            page = blogRepository.findByApprovedAndCrtdBy("true".equalsIgnoreCase(approvedStatus),userName,pageable);
         }
         PagableResponse response = new PagableResponse();
         response.setResponse(page.stream().toList());

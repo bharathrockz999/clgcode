@@ -1,8 +1,11 @@
 package com.clg.controller;
 
+import com.clg.config.UserInfoUserDetailsService;
 import com.clg.dto.AuthRequest;
+import com.clg.dto.AuthResponse;
 import com.clg.dto.Product;
 import com.clg.entity.UserInfo;
+import com.clg.repository.UserInfoRepository;
 import com.clg.service.JwtService;
 import com.clg.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +15,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -28,6 +33,12 @@ public class ProductController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserInfoUserDetailsService userInfoUserDetailsService;
+
+    @Autowired
+    private UserInfoRepository repository;
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -58,10 +69,17 @@ public class ProductController {
 
 
     @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public AuthResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            Optional<UserInfo> userInfo = repository.findByEmail(authRequest.getUsername());
+            AuthResponse response = new AuthResponse();
+            response.setToken(jwtService.generateToken(authRequest.getUsername()));
+            response.setUsername(userInfo.get().getEmail());
+            response.setName(userInfo.get().getName());
+            response.setAuthorities(userInfo.get().getRoles());
+            return response;
+
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }

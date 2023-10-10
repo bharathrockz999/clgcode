@@ -80,7 +80,7 @@ public class BlogController {
             username = principal.toString();
         }
        String userName =  param.get("userName") == null ?  username : param.get("userName");
-        return ResponseEntity.ok(blogService.getBlogsPagable(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName));
+        return ResponseEntity.ok(blogService.getBlogsPagable(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName,param.get("approvedStatus")));
     }
 
     @PostMapping("/page/get/category")

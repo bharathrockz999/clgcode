@@ -16,4 +16,8 @@ public interface BlogRepository extends MongoRepository<Blog, Integer> {
     Page<Blog> findByApprovedAndCategoriesIn(boolean b, List<String> category, Pageable pageable);
 
     Page<Blog> findByApprovedAndCrtdByAndCategoriesIn(boolean b, String userName, List<String> category, Pageable pageable);
+
+    Page<Blog> findByApproved(boolean b, Pageable pageable);
+
+    Page<Blog> findByApprovedAndCrtdBy(boolean b, String userName, Pageable pageable);
 }
