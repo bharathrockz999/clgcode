@@ -22,8 +22,9 @@ public class Profile {
     @Id
     private Long id;
     @Indexed(unique = true)
-    private String username;
-    private String userimagePath;
+    private String firstName;
+    private String lastName;
+    private String userImagePath;
     private String designation;
     private String address;
     private String email;
@@ -38,8 +39,8 @@ public class Profile {
     @NoArgsConstructor
     public static class Education {
         private String universityName;
-        private Date startDate;
         private String degreeType;
+        private Date startDate;
         private Date endDate;
     }
 
