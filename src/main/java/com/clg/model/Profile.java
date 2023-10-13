@@ -22,6 +22,7 @@ public class Profile {
     @Id
     private Long id;
     @Indexed(unique = true)
+    private String username;
     private String firstName;
     private String lastName;
     private String userImagePath;
