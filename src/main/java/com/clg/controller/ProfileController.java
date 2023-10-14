@@ -47,4 +47,16 @@ public class ProfileController {
         return ResponseEntity.ok(updated);
     }
 
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<String> deleteProfile(@PathVariable String username) {
+        profileService.deleteProfile(username);
+        return ResponseEntity.ok("deleted");
+    }
+
+    @GetMapping("/get/{userName}")
+    public ResponseEntity<Profile> getProfile(@PathVariable String userName) {
+        Profile profile = profileService.getProfile(userName);
+        return ResponseEntity.ok(profile);
+    }
+
 }
