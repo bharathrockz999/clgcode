@@ -47,6 +47,13 @@ public class BlogService {
         Blog existingBlog = existingOptional.get();
         existingBlog.setSub(blog.getSub());
         existingBlog.setDesc(blog.getDesc());
+        existingBlog.setShortIntro(blog.getShortIntro());
+        existingBlog.setStatus(blog.getStatus());
+        existingBlog.setVisibility(blog.getVisibility());
+        existingBlog.setCategories(blog.getCategories());
+        existingBlog.setStartDate(blog.getStartDate());
+        existingBlog.setEndDate(blog.getEndDate());
+        existingBlog.setAttachments(blog.getAttachments());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = null;
         if (principal instanceof UserDetails) {
@@ -54,8 +61,8 @@ public class BlogService {
         } else {
             username = principal.toString();
         }
-        blog.setCrtdBy(username);
-        blog.setCrtdTme(new Date());
+        existingBlog.setCrtdBy(username);
+        existingBlog.setCrtdTme(new Date());
         blogRepository.save(existingBlog);
         return existingBlog;
     }
@@ -164,4 +171,11 @@ public class BlogService {
         return existingBlog;
     }
 
+    public void deleteBlog(Integer blogid) {
+        blogRepository.deleteById(blogid);
+    }
+    public void deleteComment(Blog blog, String userName) {
+        blog.getComments().remove(userName);
+        blogRepository.save(blog);
+    }
 }

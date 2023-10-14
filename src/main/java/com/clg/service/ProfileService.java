@@ -27,6 +27,10 @@ public class ProfileService {
         return profileRepository.save(updatedProfile);
     }
 
+    public void deleteProfile(String username) {
+        profileRepository.deleteByUsername(username);
+    }
+
 }
 
 

@@ -32,6 +32,13 @@ public class BlogController {
         Blog blogcreated = blogService.updateBlog(blogid,blog);
         return ResponseEntity.ok(blogcreated);
     }
+
+    @DeleteMapping("/delete/{blogid}")
+    public ResponseEntity<String> deleteBlog(@PathVariable Integer blogid) {
+         blogService.deleteBlog(blogid);
+        return ResponseEntity.ok("deleted");
+    }
+
     @PostMapping("/approve/{blogid}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Blog> ApproveBlog(@PathVariable Integer blogid) {
@@ -94,5 +101,12 @@ public class BlogController {
         }
         String userName =  param.get("userName") == null ?  username : param.get("userName");
         return ResponseEntity.ok(blogService.getBlogsPagableByCategory(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName,blogCategoryVo.getCategory(),blogCategoryVo.getApprovedStatus()));
+    }
+
+    @DeleteMapping("/deleteComment/{blogid}/{userName}")
+    public ResponseEntity<String> deleteComment(@PathVariable Integer blogid, @PathVariable String userName) {
+        Blog blog = blogService.getBlogById(blogid);
+        blogService.deleteComment(blog,userName);
+        return ResponseEntity.ok("successfully deleted comment");
     }
 }
