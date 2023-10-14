@@ -35,7 +35,7 @@ public class ProfileController {
             return ResponseEntity.notFound().build();
         }
 
-        existingProfile.setUserimagePath(updatedProfile.getUserimagePath());
+        existingProfile.setUserImagePath(updatedProfile.getUserImagePath());
         existingProfile.setDesignation(updatedProfile.getDesignation());
         existingProfile.setAddress(updatedProfile.getAddress());
         existingProfile.setEmail(updatedProfile.getEmail());
