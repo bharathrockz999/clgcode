@@ -60,11 +60,13 @@ public class ProductService {
         }
         userInfo.setId(sequenceGeneratorService.generateSequence(UserInfo.SEQUENCE_NAME));
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
-        if(userInfo.getEmail().endsWith("@nwmissouri.com")){
-            userInfo.setRoles("ROLE_STUDENT");
-        } else {
-            userInfo.setRoles("ROLE_USER");
-        }
+       if(userInfo.getRoles() == null || userInfo.getRoles().isEmpty()) {
+           if (userInfo.getEmail().endsWith("@nwmissouri.com")) {
+               userInfo.setRoles("ROLE_STUDENT");
+           } else {
+               userInfo.setRoles("ROLE_USER");
+           }
+       }
         repository.save(userInfo);
         return "user added to system ";
     }
