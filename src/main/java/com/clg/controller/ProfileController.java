@@ -37,6 +37,8 @@ public class ProfileController {
             return ResponseEntity.notFound().build();
         }
         Profile existingProfile = optionalProfile.get();
+        existingProfile.setFirstName(updatedProfile.getFirstName());
+        existingProfile.setLastName(updatedProfile.getLastName());
         existingProfile.setUserImagePath(updatedProfile.getUserImagePath());
         existingProfile.setDesignation(updatedProfile.getDesignation());
         existingProfile.setAddress(updatedProfile.getAddress());
@@ -44,7 +46,7 @@ public class ProfileController {
         existingProfile.setContactNumber(updatedProfile.getContactNumber());
         existingProfile.setSkills(updatedProfile.getSkills());
         existingProfile.setEducation(updatedProfile.getEducation());
-
+        existingProfile.setLanguages(updatedProfile.getLanguages());
         Profile updated = profileService.updateProfile(existingProfile);
         return ResponseEntity.ok(updated);
     }
