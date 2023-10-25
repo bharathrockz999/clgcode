@@ -100,7 +100,7 @@ public class BlogController {
             username = principal.toString();
         }
         String userName =  param.get("userName") == null ?  username : param.get("userName");
-        return ResponseEntity.ok(blogService.getBlogsPagableByCategory(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName,blogCategoryVo.getCategory(),blogCategoryVo.getApprovedStatus()));
+        return ResponseEntity.ok(blogService.getBlogsPagableByCategory(Integer.parseInt(param.get("pageNumber")), Integer.parseInt(param.get("noOfRecords")), "crtdTme",userName,blogCategoryVo.getCategory(),blogCategoryVo.getApprovedStatus(),blogCategoryVo.getStatus(),blogCategoryVo.getVisibility()));
     }
 
     @DeleteMapping("/deleteComment/{blogid}/{userName}")

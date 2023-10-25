@@ -13,5 +13,7 @@ import java.util.Map;
 public class BlogCategoryVo {
     Map<String,String> param;
     List<String> category;
-    Boolean approvedStatus;
+    List<Boolean> approvedStatus;
+    List<String> status;
+    List<Boolean> visibility;
 }

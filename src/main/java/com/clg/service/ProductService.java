@@ -1,11 +1,14 @@
 package com.clg.service;
 
+import com.clg.SpringSecurityLatestApplication;
 import com.clg.dto.Product;
 import com.clg.entity.UserInfo;
 import com.clg.repository.UserInfoRepository;
 import com.clg.sequence.SequenceGeneratorService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class ProductService {
 
     @Autowired
     SequenceGeneratorService sequenceGeneratorService;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     @PostConstruct
     public void loadProductsFromDB() {
@@ -69,6 +75,27 @@ public class ProductService {
        }
         repository.save(userInfo);
         return "user added to system ";
+    }
+
+    public String getuserandSendCode(UserInfo userInfo, boolean bypass) {
+        Optional<UserInfo> userinfomail = repository.findByEmail(userInfo.getEmail());
+        if (userinfomail.isPresent() && bypass) {
+            return "user already exists with the email ";
+        }
+        if(!bypass && !userinfomail.isPresent()){
+            return "user doesn't exists ";
+        }
+            Random random = new Random();
+            String id = String.format("%04d", random.nextInt(10000));
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("pblgdp2@gmail.com");
+            message.setTo(userInfo.getEmail());
+            message.setSubject("Login Code");
+            message.setText("Hi!!, Please use this code to login "+id);
+            emailSender.send(message);
+            SpringSecurityLatestApplication.codes.put(userInfo.getEmail(),id);
+            return "sent email with id";
+
     }
 
 }

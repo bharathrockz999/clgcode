@@ -4,11 +4,13 @@ import com.clg.model.Profile;
 import com.clg.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/profile")
@@ -63,5 +65,6 @@ public class ProfileController {
         return profile.isPresent() ?   ResponseEntity.ok(profile.get()) :  ResponseEntity.ok("Not Found");
 
     }
+
 
 }

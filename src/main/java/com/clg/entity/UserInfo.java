@@ -25,4 +25,5 @@ public class UserInfo {
     private String password;
     private String mobile;
     private String roles;
+    private Long code;
 }
