@@ -66,11 +66,11 @@ public class ProductController {
     }
 
 
-    @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<Product> getAllTheProducts() {
-        return service.getProducts();
-    }
+//    @GetMapping("/all")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    public List<Product> getAllTheProducts() {
+//        return service.getProducts();
+//    }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -123,4 +123,10 @@ public class ProductController {
         SpringSecurityLatestApplication.codes.remove(email);
         return new ResponseEntity<String>("changed password", HttpStatus.OK);
     }
+     @GetMapping("/all")
+     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+     public ResponseEntity<List<UserInfo>> getAllUsers() {
+       return new ResponseEntity<List<UserInfo>>(service.getUsers(), HttpStatus.OK);
+    }
+
 }

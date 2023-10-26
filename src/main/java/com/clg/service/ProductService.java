@@ -98,4 +98,7 @@ public class ProductService {
 
     }
 
+    public List<UserInfo> getUsers() {
+        return repository.findAll();
+    }
 }
