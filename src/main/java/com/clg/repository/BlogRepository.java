@@ -4,7 +4,10 @@ import com.clg.entity.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BlogRepository extends MongoRepository<Blog, Integer> {
@@ -28,4 +31,6 @@ public interface BlogRepository extends MongoRepository<Blog, Integer> {
     Page<Blog> findByApprovedInAndCategoriesInAndStatusInAndVisibilityIn(List<Boolean> approved, List<String> category, Pageable pageable, List<String> statusIn, List<Boolean> visibility);
 
     Page<Blog> findByApprovedInAndCrtdByAndCategoriesInAndStatusInAndVisibilityIn(List<Boolean> approved, String userName, List<String> category, Pageable pageable, List<String> statusIn, List<Boolean> visibility);
+
+    List<Blog> findByCrtdTmeBetweenAndCrtdBy(Date startDate, Date endDate, String email);
 }

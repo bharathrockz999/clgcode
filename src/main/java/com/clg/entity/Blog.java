@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Document("blog")
@@ -36,4 +35,5 @@ public class Blog {
     private Date endDate;
     private Set<String> likes =  new HashSet<>();
     private Set<String> unlikes = new HashSet<>();
+    private Map<String,Boolean> projectRequests = new HashMap<>();
 }

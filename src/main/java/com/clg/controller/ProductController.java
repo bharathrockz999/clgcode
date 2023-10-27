@@ -65,6 +65,12 @@ public class ProductController {
         return new ResponseEntity<String>("user created successfully", HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<String> deletee(@PathVariable String email) {
+        repository.deleteByEmail(email);
+        return new ResponseEntity<String>("deleted", HttpStatus.OK);
+    }
+
 
 //    @GetMapping("/all")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
