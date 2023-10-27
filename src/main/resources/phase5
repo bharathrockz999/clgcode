@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "34ff8e63-f73a-4601-9a38-168964fa7ef5",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20548922"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"ab\",\r\n    \"email\" : \"bharathrockz999@gmail.com\",\r\n    \"password\":\"ba\",\r\n    \"roles\":\"ROLE_ADMIN\",\r\n    \"code\": 0711\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/new"
+			},
+			"response": []
+		},
+		{
+			"name": "sendcode",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"bharathrockz999@gmail.com\"\r\n \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/sendCode"
+			},
+			"response": []
+		},
+		{
+			"name": "forgotpassword",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"bharathbikku0806@gmail.com\"\r\n \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/forgotPassword"
+			},
+			"response": []
+		},
+		{
+			"name": "changepassword",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/user/changePassword/7572/bharathrockz999@gmail.com/Bharath1"
+			},
+			"response": []
+		},
+		{
+			"name": "signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bharathrockz999@gmail.com\",\r\n    \"password\" :\"Bharath1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/user/authenticate"
+			},
+			"response": []
+		},
+		{
+			"name": "createBlog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"sub\": \"Subject 123\",\r\n        \"shortIntro\": \"Subject 12\",\r\n        \"desc\": \"description Subject 123\",\r\n        \"status\": \"DRAFT\",\r\n        \"visibility\" :true,\r\n        \"categories\": [\"A\",\"D\"],\r\n        \"attachments\": [\"Base 64\"],\r\n        \"startDate\": \"2023-10-08\",\r\n        \"endDate\": \"2023-10-18\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/create"
+			},
+			"response": []
+		},
+		{
+			"name": "requestblog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/blog/request/30"
+			},
+			"response": []
+		},
+		{
+			"name": "request approve blog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/blog/request/30"
+			},
+			"response": []
+		},
+		{
+			"name": "getApprovedAndUNApprved",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/blog/getapprovedAndUnApproved"
+			},
+			"response": []
+		},
+		{
+			"name": "updateBlog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"sub\": \"updated\",\r\n        \"shortIntro\": \"updated 12\",\r\n        \"desc\": \"description updated 123\",\r\n        \"status\": \"updated\",\r\n        \"visibility\" :true,\r\n        \"categories\": [\"updated\"],\r\n        \"attachments\": [\"updated 64\"],\r\n        \"startDate\": \"2023-10-08\",\r\n        \"endDate\": \"2023-10-18\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/update/63"
+			},
+			"response": []
+		},
+		{
+			"name": "like",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"sub\": \"updated\",\r\n        \"shortIntro\": \"updated 12\",\r\n        \"desc\": \"description updated 123\",\r\n        \"status\": \"updated\",\r\n        \"visibility\" :true,\r\n        \"categories\": [\"updated\"],\r\n        \"attachments\": [\"updated 64\"],\r\n        \"startDate\": \"2023-10-08\",\r\n        \"endDate\": \"2023-10-18\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/like/31"
+			},
+			"response": []
+		},
+		{
+			"name": "unlike",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"sub\": \"updated\",\r\n        \"shortIntro\": \"updated 12\",\r\n        \"desc\": \"description updated 123\",\r\n        \"status\": \"updated\",\r\n        \"visibility\" :true,\r\n        \"categories\": [\"updated\"],\r\n        \"attachments\": [\"updated 64\"],\r\n        \"startDate\": \"2023-10-08\",\r\n        \"endDate\": \"2023-10-18\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/unlike/31"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Blog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/blog/delete/4"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/blog/delete/4"
+			},
+			"response": []
+		},
+		{
+			"name": "approveblog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/blog/approve/10"
+			},
+			"response": []
+		},
+		{
+			"name": "rejectBlog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/blog/reject/21"
+			},
+			"response": []
+		},
+		{
+			"name": "getallblogs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/blog"
+			},
+			"response": []
+		},
+		{
+			"name": "dashboardprojectsYearsCount",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/blog/dashboard/year/2023/bharathrockz999@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "getallblogs Page",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pageNumber\":0,\r\n    \"noOfRecords\":10,\r\n    \"userName\":\"all\",\r\n    \"approvedStatus\" : \"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/page/get"
+			},
+			"response": []
+		},
+		{
+			"name": "getallblogs Page Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"param\": {\r\n        \"pageNumber\": 0,\r\n        \"noOfRecords\": 10,\r\n        \"userName\": \"all\" // if not sent yours// is sent all, all// if any id, id specific\r\n    },\r\n    \"category\": [\r\n        \"DEVELOP\",\"Health & Community\",\"DRAFT\",\"D\"\r\n    ],\r\n    \"approvedStatus\" : [true,false],\r\n    \"status\" : [\"COMPLETED\",\"DRAFT\",\"PENDING\"],\r\n    \"visibility\" : [true,false]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/page/get/category"
+			},
+			"response": []
+		},
+		{
+			"name": "add profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userimagePath\": \"xvxcvxc\",\r\n    \"designation\": \"Dsds\",\r\n    \"address\": \"dsdsd\",\r\n    \"email\": \"dsads@gmail.com\",\r\n    \"contactNumber\": \"hjkhdjkjkj\",\r\n    \"skills\": {\r\n        \"JAVA\": 80\r\n    },\r\n    \"languages\": {\r\n        \"ENGLISH\": 90,\r\n        \"TELUGU\": 90\r\n    },\r\n    \"education\": [\r\n        {\r\n            \"universityName\": \"aaa\",\r\n            \"degreeType\": \"B.Tech\",\r\n            \"startDate\": \"2023-10-18\",\r\n            \"endDate\": \"2023-10-18\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/profile/create"
+			},
+			"response": []
+		},
+		{
+			"name": "update Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userimagePath\": \"xvxcvxc 10\",\r\n    \"designation\": \"Dsds 10\",\r\n    \"address\": \"dsdsd 10\",\r\n    \"email\": \"dsads@gmail.com10\",\r\n    \"contactNumber\": \"hjkhdjkjkj10\",\r\n    \"skills\": {\r\n        \"JAVA\": 10\r\n    },\r\n    \"languages\": {\r\n        \"ENGLISH\": 10,\r\n        \"TELUGU\": 10\r\n    },\r\n    \"education\": [\r\n        {\r\n            \"universityName\": \"aaa\",\r\n            \"degreeType\": \"B.Tech\",\r\n            \"startDate\": \"2023-10-18\",\r\n            \"endDate\": \"2023-10-18\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/profile/update/a@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "delete profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/profile/delete/Bharath"
+			},
+			"response": []
+		},
+		{
+			"name": "getProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/profile/get/a@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "addcomment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/blog/addcomment/30/sddsad"
+			},
+			"response": []
+		},
+		{
+			"name": "updateComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/blog/addcomment/30/bh"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteComment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/blog/deleteComment/30/bharathrockz999@gmail.com"
+			},
+			"response": []
+		}
+	]
+}
