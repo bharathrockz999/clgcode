@@ -34,4 +34,5 @@ public interface BlogRepository extends MongoRepository<Blog, Integer> {
 
     List<Blog> findByCrtdTmeBetweenAndCrtdBy(Date startDate, Date endDate, String email);
     List<Blog> findByCrtdTmeBetween(Date startDate, Date endDate);
+    List<Blog> findByCrtdBy(String crtdBy);
 }

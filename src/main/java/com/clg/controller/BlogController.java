@@ -176,4 +176,17 @@ public class BlogController {
         return ResponseEntity.ok(userAndCount);
     }
 
+    @GetMapping("/trending")
+    public ResponseEntity<Map<String,Object>> gettrendingProjects() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        Map<String,Object> approvedAndRejectedCount = blogService.gettrendingProjects(username);
+        return ResponseEntity.ok(approvedAndRejectedCount);
+    }
+
 }

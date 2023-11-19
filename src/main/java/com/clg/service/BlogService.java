@@ -219,7 +219,7 @@ public class BlogService {
         Collections.sort(blogs, new Comparator<Blog>() {
             @Override
             public int compare(Blog list1, Blog list2) {
-                return Integer.compare(list2.getLikes().size(), list2.getLikes().size()); // Sort in descending order
+                return Integer.compare(list1.getLikes().size(), list2.getLikes().size()); // Sort in descending order
             }
         });
         for(int i = 0 ; i<=4 ; i++){
@@ -229,7 +229,7 @@ public class BlogService {
         Collections.sort(blogs, new Comparator<Blog>() {
             @Override
             public int compare(Blog list1, Blog list2) {
-                return Integer.compare(list2.getUnlikes().size(), list2.getUnlikes().size()); // Sort in descending order
+                return Integer.compare(list2.getUnlikes().size(), list1.getUnlikes().size()); // Sort in descending order
             }
         });
         for(int i = 0 ; i<=4 ; i++){
@@ -339,5 +339,43 @@ return categoriesAndCount;
         categoriesAndCount.put("requestsforMyBlogs",requests.get());
         categoriesAndCount.put("approvedforMyBlogs",approvedforMyBlogs.get());
         return categoriesAndCount;
+    }
+
+    public Map<String, Object> gettrendingProjects(String mailId) {
+        Map<String, Object> map = new HashMap<>();
+        List<Blog> blogs = blogRepository.findByCrtdBy(mailId);
+        List<Blog> top5LikedBlogs = new ArrayList<>();
+        List<Blog> top5UnLikedBlogs = new ArrayList<>();
+        Collections.sort(blogs, new Comparator<Blog>() {
+            @Override
+            public int compare(Blog list1, Blog list2) {
+                return Integer.compare(list2.getLikes().size(), list1.getLikes().size()); // Sort in descending order
+            }
+        });
+        for(int i = 0 ; i<=4 ; i++){
+            try {
+                top5LikedBlogs.add(blogs.get(i));
+            }catch(Exception e){
+
+            }
+
+        }
+        Collections.sort(blogs, new Comparator<Blog>() {
+            @Override
+            public int compare(Blog list1, Blog list2) {
+                return Integer.compare(list2.getUnlikes().size(), list1.getUnlikes().size()); // Sort in descending order
+            }
+        });
+        for(int i = 0 ; i<=4 ; i++){
+            try{
+            top5UnLikedBlogs.add(blogs.get(i));
+        }catch(Exception e){
+
+        }
+
+        }
+        map.put("top5liked",top5LikedBlogs);
+        map.put("top5Unliked",top5UnLikedBlogs);
+        return  map;
     }
 }
