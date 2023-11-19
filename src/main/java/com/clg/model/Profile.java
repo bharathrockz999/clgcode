@@ -33,7 +33,7 @@ public class Profile {
     private Map<String, Integer> skills;
     private Map<String, Integer> languages;
     private List<Education> education;
-    private List<Education> experience;
+    private List<Experience> experience;
 
 
     @Data
