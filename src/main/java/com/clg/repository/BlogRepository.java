@@ -33,4 +33,5 @@ public interface BlogRepository extends MongoRepository<Blog, Integer> {
     Page<Blog> findByApprovedInAndCrtdByAndCategoriesInAndStatusInAndVisibilityIn(List<Boolean> approved, String userName, List<String> category, Pageable pageable, List<String> statusIn, List<Boolean> visibility);
 
     List<Blog> findByCrtdTmeBetweenAndCrtdBy(Date startDate, Date endDate, String email);
+    List<Blog> findByCrtdTmeBetween(Date startDate, Date endDate);
 }

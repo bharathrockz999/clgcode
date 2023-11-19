@@ -33,6 +33,7 @@ public class Profile {
     private Map<String, Integer> skills;
     private Map<String, Integer> languages;
     private List<Education> education;
+    private List<Education> experience;
 
 
     @Data
@@ -44,5 +45,13 @@ public class Profile {
         private Date startDate;
         private Date endDate;
     }
-
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Experience {
+        private String company;
+        private String description;
+        private Date startDate;
+        private Date endDate;
+    }
 }

@@ -158,6 +158,22 @@ public class BlogController {
         Map<String,Object> approvedAndRejectedCount = blogService.getApporvedAndUnApproved(username);
         return ResponseEntity.ok(approvedAndRejectedCount);
     }
+    @GetMapping("/dashboard/year/{fromYear}")
+    public ResponseEntity<Map<String, Long>> dashboardCatrgoryCount(@PathVariable Integer fromYear) throws ParseException {
+        Map<String, Long> categoryAndCount =  blogService.getBlogsCountByCategory(fromYear+"-01-01 00:00:00",fromYear+"-12-31 23:59:59");
+        return ResponseEntity.ok(categoryAndCount);
+    }
 
+    @GetMapping("/blogUsersCount/yearmonth/{fromYear}/{month}")
+    public ResponseEntity<Map<String, Long>> getblogusersCountYearMonth(@PathVariable Integer fromYear, @PathVariable Integer month) throws ParseException {
+        Map<String, Long> userAndCount =  blogService.getBlogsCountByUser(fromYear+"-"+month+"-01 00:00:00",fromYear+"-"+month+"-31 23:59:59");
+        return ResponseEntity.ok(userAndCount);
+    }
+
+    @GetMapping("/userDashboardSummary/{fromYear}")
+    public ResponseEntity<Map<String, Long>> getblogusersCountYearMonth(@PathVariable Integer fromYear) throws ParseException {
+        Map<String, Long> userAndCount =  blogService.getBlogsForRequestedAndApprovedMetadata(fromYear+"-01-01 00:00:00",fromYear+"-12-31 23:59:59");
+        return ResponseEntity.ok(userAndCount);
+    }
 
 }
