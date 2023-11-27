@@ -27,7 +27,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "https://clgcode-project-ui.onrender.com")
 public class ProductController {
 
     @Autowired
