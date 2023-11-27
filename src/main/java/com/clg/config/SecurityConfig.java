@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -50,7 +51,7 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/user/authenticate","/blog/page/get","/blog/page/get/category","/user/new","/user/sendCode","/user/forgotPassword","/user/changePassword/**","/blog/page/get/category").permitAll()
-                .and()
+                .and() .authorizeHttpRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll().and()
                 .authorizeHttpRequests().requestMatchers("/**")
                 .authenticated().and().csrf().disable()
                 .sessionManagement()
