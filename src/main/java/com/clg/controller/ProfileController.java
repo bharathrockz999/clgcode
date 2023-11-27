@@ -14,6 +14,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/profile")
+@CrossOrigin(origins = "https://clgcode-project-ui.onrender.com")
 public class ProfileController {
     @Autowired
     ProfileService profileService;

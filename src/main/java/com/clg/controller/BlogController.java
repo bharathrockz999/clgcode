@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "https://clgcode-project-ui.onrender.com")
 @RequestMapping("/blog")
 public class BlogController {
 
