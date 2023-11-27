@@ -190,7 +190,12 @@ public class BlogService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date  from = simpleDateFormat.parse(startDate);
         Date  to = simpleDateFormat.parse(endDate);
-        List<Blog> documents = blogRepository.findByCrtdTmeBetweenAndCrtdBy(from, to,email);
+        List<Blog> documents;
+        if(email.equalsIgnoreCase("all")){
+            documents = blogRepository.findByCrtdTmeBetween(from, to);
+        }else{
+           documents = blogRepository.findByCrtdTmeBetweenAndCrtdBy(from, to,email);
+        }
         Map<Integer, Long> countsByMonth = new HashMap<>();
         Calendar calendar = Calendar.getInstance();
         for (Blog document : documents) {
