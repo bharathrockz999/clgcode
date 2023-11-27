@@ -48,12 +48,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .cors(cors -> cors.disable())
                 .authorizeHttpRequests()
                 .requestMatchers("/user/authenticate","/blog/page/get","/blog/page/get/category","/user/new","/user/sendCode","/user/forgotPassword","/user/changePassword/**","/blog/page/get/category").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**")
-                .authenticated().and()
+                .authenticated().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
