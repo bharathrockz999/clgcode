@@ -49,6 +49,7 @@ public class ProfileController {
         existingProfile.setSkills(updatedProfile.getSkills());
         existingProfile.setEducation(updatedProfile.getEducation());
         existingProfile.setLanguages(updatedProfile.getLanguages());
+        existingProfile.setExperience(updatedProfile.getExperience());
         Profile updated = profileService.updateProfile(existingProfile);
         return ResponseEntity.ok(updated);
     }
